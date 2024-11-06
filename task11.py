@@ -24,6 +24,10 @@ def add_multiple_entries(data):
 
 def delete_entry(data):
     """Delete an entry from the data."""
+    if not data:
+        print("No data available to delete.")
+        return
+    
     display_data(data)
     index = int(input("Enter the number of the entry to delete: ")) - 1
     if 0 <= index < len(data):
@@ -38,9 +42,15 @@ def delete_all_data(data):
     if confirmation == 'yes':
         data.clear()
         print("All data has been deleted.")
+    else:
+        print("Deletion canceled.")
 
 def update_entry(data):
     """Update an existing entry in the data."""
+    if not data:
+        print("No data available to update.")
+        return
+    
     display_data(data)
     index = int(input("Enter the number of the entry to update: ")) - 1
     if 0 <= index < len(data):
@@ -87,5 +97,5 @@ def main():
         else:
             print("Invalid choice. Please select a number between 1 and 7.")
 
-    main()
-  
+# Call main function directly
+main()
