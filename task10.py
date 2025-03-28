@@ -1,51 +1,70 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher Decryption</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        input, button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Caesar Cipher Decryption</h1>
+        <label for="shift">Enter the shifting number:</label>
+        <input type="number" id="shift" placeholder="Shift number">
 
-namespace ConsoleApp1
-{
-    internal class Pogi
-    {
-       
-           
-        static void Main(string[] args)
-        {
-            // Prompt the user for the shifting number
-            Console.Write("Enter the shifting number: ");
-            int shift = int.Parse(Console.ReadLine());
+        <label for="word">Enter the word to decrypt:</label>
+        <input type="text" id="word" placeholder="Encrypted word">
 
-            // Prompt the user for the word to decrypt
-            Console.Write("Enter the word to decrypt: ");
-            string word = Console.ReadLine();
+        <button onclick="decrypt()">Decrypt</button>
 
-            string decryptedWord = ""; // Variable to store the decrypted word
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function decrypt() {
+            // Get input values
+            const shift = parseInt(document.getElementById('shift').value);
+            const word = document.getElementById('word').value;
+
+            let decryptedWord = "";
 
             // Loop through each character in the word
-            foreach (char c in word)
-            {
-                if (char.IsLetter(c)) // Check if the character is a letter
-                {
-                    char offset = char.IsUpper(c) ? 'A' : 'a'; // Determine the offset for uppercase or lowercase
-                                                               // Shift the character backward by the shift value
-                    char decryptedChar = (char)(((c - offset - shift + 26) % 26) + offset);
+            for (let i = 0; i < word.length; i++) {
+                const c = word[i];
+                if (/[a-zA-Z]/.test(c)) { // Check if the character is a letter
+                    const offset = c === c.toUpperCase() ? 'A'.charCodeAt(0) : 'a'.charCodeAt(0);
+                    // Shift the character backward by the shift value
+                    const decryptedChar = String.fromCharCode(((c.charCodeAt(0) - offset - shift + 26) % 26) + offset);
                     decryptedWord += decryptedChar;
-                }
-                else
-                {
+                } else {
                     // Keep non-alphabetic characters unchanged
                     decryptedWord += c;
                 }
             }
 
-            // Output the decrypted word
-            Console.WriteLine("Decrypted word: " + decryptedWord);
+            // Display the decrypted word
+            document.getElementById('result').innerText = "Decrypted word: " + decryptedWord;
         }
-    }
-
-}
-        
-    
-
+    </script>
+</body>
+</html>
 
